@@ -10,9 +10,12 @@ import net.spellcraftgaming.rpghud.gui.hud.element.HudElementType;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Environment(value = EnvType.CLIENT)
 public class Settings {
@@ -242,6 +245,21 @@ public class Settings {
 
     public Setting getSetting(String id) {
         return this.settings.get(id);
+    }
+
+    /**
+     * Returns all registered setting IDs in their stable config-file order.
+     * The returned set is a detached, read-only snapshot.
+     */
+    public Set<String> getSettingIds() {
+        return Collections.unmodifiableSet(new LinkedHashSet<>(this.settings.keySet()));
+    }
+
+    /**
+     * Returns the config file used by RPG-Hud.
+     */
+    public File getConfigFile() {
+        return this.file;
     }
 
     public int[] getPositionValue(String i) {
